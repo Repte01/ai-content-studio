@@ -10,6 +10,18 @@ import streamlit as st
 import os
 from dotenv import load_dotenv
 
+import tempfile
+import shutil
+
+# Para procesar imágenes
+with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmp_file:
+    tmp_file.write(imagen.getvalue())
+    tmp_path = tmp_file.name
+    
+# Procesar imagen...
+# Al finalizar:
+os.unlink(tmp_path)
+
 # Cargar variables de entorno
 load_dotenv()
 
@@ -899,4 +911,5 @@ code {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 </style>
+
 """, unsafe_allow_html=True)
