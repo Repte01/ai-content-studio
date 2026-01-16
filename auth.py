@@ -4,8 +4,18 @@ import re
 import json
 from datetime import datetime
 
+# En auth.py y gallery.py, cambia:
 DB_NAME = "users.db"
 
+# Por algo como:
+import tempfile
+import os
+
+# Usar directorio temporal en Streamlit Cloud
+if "STREAMLIT_CLOUD" in os.environ:
+    DB_PATH = os.path.join(tempfile.gettempdir(), "users.db")
+else:
+    DB_PATH = "users.db"
 
 # =========================
 # DB INIT
@@ -168,4 +178,5 @@ def cambiar_contraseña(usuario_id: int, password_actual: str, nueva_password: s
     
     conn.commit()
     conn.close()
+
     return True
